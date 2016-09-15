@@ -48,12 +48,12 @@ def experimental():
 
 
 def error(message):
-   print "\033[1;31mError: " + message + "\033[0m"
+   print("\033[1;31mError: " + message + "\033[0m")
    sys.exit(1)
 
 
 def warning(message):
-   print "\033[1;33mWarning: " + message + "\033[0m"
+   print("\033[1;33mWarning: " + message + "\033[0m")
 
 
 # allowable formats:

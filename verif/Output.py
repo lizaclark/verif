@@ -9,8 +9,6 @@ import os
 import inspect
 import sys
 import matplotlib.dates as mpldates
-reload(sys)
-sys.setdefaultencoding('ISO-8859-1')
 
 
 def getAllOutputs():
@@ -327,7 +325,7 @@ class Output:
          return listStyles[I]
 
       else:  # default linestyles
-         I = (i / len(self.colors)) % len(self.default_lines)
+         I = int((i / len(self.colors)) % len(self.default_lines))
          line = self.default_lines[I]
          marker = self.default_markers[I]
          if(lineOnly):
@@ -659,25 +657,25 @@ class Default(Output):
       lineDesc = data.getAxisDescriptionHeader()
       lineDescN = len(lineDesc) + 2
       lineDescFmt = "%-" + str(lineDescN) + "s |"
-      print lineDescFmt % lineDesc,
+      print(lineDescFmt % lineDesc, )
       if(data.getAxis() == "threshold"):
          descs = self._thresholds
       else:
          descs = data.getAxisDescriptions()
       for name in names:
-         print fmt % name,
-      print ""
+         print(fmt % name, )
+      print("")
 
       # Loop over rows
       for i in range(0, len(x[0])):
-         print lineDescFmt % descs[i],
+         print(lineDescFmt % descs[i], )
          self._printLine(y[:, i], maxlength, "float")
 
       # Print stats
       for func in [Util.nanmin, Util.nanmean, Util.nanmax,
             Util.nanstd]:
          name = func.__name__[3:]
-         print lineDescFmt % name,
+         print(lineDescFmt % name, )
          values = np.zeros(F, 'float')
          for f in range(0, F):
             values[f] = func(y[f, :])
@@ -686,7 +684,7 @@ class Default(Output):
       # Print count stats
       for func in [Util.nanmin, Util.nanmax]:
          name = func.__name__[3:]
-         print lineDescFmt % ("num " + name),
+         print(lineDescFmt % ("num " + name), )
          values = np.zeros(F, 'float')
          for f in range(0, F):
             values[f] = np.sum(y[f, :] == func(y, axis=0))
@@ -707,12 +705,12 @@ class Default(Output):
          else:
             txt = fmt % value
          if(minI == f):
-            print Util.green(txt),
+            print(Util.green(txt), )
          elif(maxI == f):
-            print Util.red(txt),
+            print(Util.red(txt), )
          else:
-            print txt,
-      print ""
+            print(txt, )
+      print("")
 
    def _mapCore(self, data):
       # Use the Basemap package if it is available
@@ -928,21 +926,21 @@ class Hist(Output):
       lineDesc = data.getAxisDescriptionHeader()
       lineDescN = len(lineDesc) + 2
       lineDescFmt = "%-" + str(lineDescN) + "s |"
-      print lineDescFmt % lineDesc,
+      print(lineDescFmt % lineDesc, )
       descs = self._thresholds
       for label in labels:
-         print fmt % label,
-      print ""
+         print(fmt % label, )
+      print("")
 
       # Loop over rows
       for i in range(0, len(x[0])):
-         print lineDescFmt % descs[i],
+         print(lineDescFmt % descs[i], )
          self._printLine(y[:, i], maxlength, "int")
 
       # Print count stats
       for func in [Util.nanmin, Util.nanmax]:
          name = func.__name__[3:]
-         print lineDescFmt % ("num " + name),
+         print(lineDescFmt % ("num " + name), )
          values = np.zeros(F, 'float')
          for f in range(0, F):
             values[f] = np.sum(y[f, :] == func(y, axis=0))
@@ -963,12 +961,12 @@ class Hist(Output):
          else:
             txt = fmt % value
          if(minI == f):
-            print Util.green(txt),
+            print(Util.green(txt), )
          elif(maxI == f):
-            print Util.red(txt),
+            print(Util.red(txt), )
          else:
-            print txt,
-      print ""
+            print(txt, )
+      print("")
 
 
 class Sort(Output):
@@ -1089,15 +1087,15 @@ class QQ(Output):
       maxlength = int(np.ceil(maxlength / 2) * 2)
       fmt = "%" + str(maxlength) + "s"
       for filename in data.getFilenames():
-         print fmt % filename,
-      print ""
+         print(fmt % filename, )
+      print("")
       fmt = "%" + str(int(np.ceil(maxlength / 2))) + ".1f"
       fmt = fmt + fmt
       fmtS = "%" + str(int(np.ceil(maxlength / 2))) + "s"
       fmtS = fmtS + fmtS
       for f in range(0, F):
-         print fmtS % ("obs", "fcst"),
-      print ""
+         print(fmtS % ("obs", "fcst"), )
+      print("")
 
       [x, y] = self.getXY(data)
       maxPairs = len(x[0])
@@ -1106,10 +1104,10 @@ class QQ(Output):
       for i in range(0, maxPairs):
          for f in range(0, F):
             if(len(x[f]) < i):
-               print " --  -- "
+               print(" --  -- ")
             else:
-               print fmt % (x[f][i], y[f][i]),
-         print "\n",
+               print(fmt % (x[f][i], y[f][i]), )
+         print("\n", )
 
 
 class Scatter(Output):

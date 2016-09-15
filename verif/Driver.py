@@ -188,7 +188,7 @@ def run(argv):
       i = i + 1
 
    if(version):
-      print "Version: " + Version.__version__
+      print("Version: " + Version.__version__)
       return
 
    # Deal with legend entries
@@ -211,27 +211,27 @@ def run(argv):
       if(len(ifiles) == 0):
          Util.error("Files are required in order to list thresholds or quantiles")
       if(listThresholds):
-         print "Thresholds:",
+         print("Thresholds:", )
          for threshold in data.getThresholds():
-            print "%g" % threshold,
-         print ""
+            print("%g" % threshold, )
+         print("")
       if(listQuantiles):
-         print "Quantiles:",
+         print("Quantiles:", )
          for quantile in data.getQuantiles():
-            print "%g" % quantile,
-         print ""
+            print("%g" % quantile, )
+         print("")
       if(listLocations):
-         print "    id     lat     lon    elev"
+         print("    id     lat     lon    elev")
          for station in data.getStations():
-            print "%6d %7.2f %7.2f %7.1f" % (station.id(), station.lat(),
-                  station.lon(), station.elev())
-         print ""
+            print("%6d %7.2f %7.2f %7.1f" % (station.id(), station.lat(),
+                  station.lon(), station.elev()))
+         print("")
       if(listDates):
          dates = data.getAxisValues("date")
          dates = Util.convertToYYYYMMDD(dates)
          for date in dates:
-            print "%d" % date
-         print ""
+            print("%d" % date)
+         print("")
       return
    elif(len(argv) == 1 or len(ifiles) == 0 or metric is None):
       showDescription(data)
@@ -240,7 +240,7 @@ def run(argv):
    if(figSize is not None):
       figSize = figSize.split(',')
       if(len(figSize) != 2):
-         print "-fs figSize must be in the form: width,height"
+         print("-fs figSize must be in the form: width,height")
          sys.exit(1)
 
    m = None
@@ -408,95 +408,93 @@ def showDescription(data=None):
    desc = "Program to compute verification scores for weather forecasts. Can be\
    used to compare forecasts from different files. In that case only dates,\
    offsets, and locations that are common to all forecast files are used."
-   print textwrap.fill(desc, Util.getTextWidth())
-   print ""
-   print "usage: verif files -m metric [options]"
-   print "       verif files [--list-thresholds] [--list-quantiles] [--list-locations]"
-   print "       verif --version"
-   print ""
-   print Util.green("Arguments:")
-   print Util.formatArgument("files", "One or more verification files in NetCDF or text format (see 'File Formats' below).")
-   print Util.formatArgument("-m metric", "Which verification metric to use? See 'Metrics' below.")
-   print Util.formatArgument("--list-thresholds", "What thresholds are available in the files?")
-   print Util.formatArgument("--list-quantiles", "What quantiles are available in the files?")
-   print Util.formatArgument("--list-locations", "What locations are available in the files?")
-   print Util.formatArgument("--version", "What version of verif is this?")
-   print ""
-   print Util.green("Options:")
-   print "Note: vectors can be entered using commas, or MATLAB syntax (i.e 3:5 is 3,4,5 and 3:2:7 is 3,5,7)"
+   print(textwrap.fill(desc, Util.getTextWidth()))
+   print("")
+   print("usage: verif files -m metric [options]")
+   print("       verif files [--list-thresholds] [--list-quantiles] [--list-locations]")
+   print("       verif --version")
+   print("")
+   print(Util.green("Arguments:"))
+   print(Util.formatArgument("files", "One or more verification files in NetCDF or text format (see 'File Formats' below)."))
+   print(Util.formatArgument("-m metric", "Which verification metric to use? See 'Metrics' below."))
+   print(Util.formatArgument("--list-thresholds", "What thresholds are available in the files?"))
+   print(Util.formatArgument("--list-quantiles", "What quantiles are available in the files?"))
+   print(Util.formatArgument("--list-locations", "What locations are available in the files?"))
+   print(Util.formatArgument("--version", "What version of verif is this?"))
+   print("")
+   print(Util.green("Options:"))
+   print("Note: vectors can be entered using commas, or MATLAB syntax (i.e 3:5 is 3,4,5 and 3:2:7 is 3,5,7)")
    # Dimensions
-   print Util.green("  Dimensions and subset:")
-   print Util.formatArgument("-d dates", "A vector of dates in YYYYMMDD format, e.g.  20130101:20130201.")
-   print Util.formatArgument("-l locations", "Limit the verification to these location IDs.")
-   print Util.formatArgument("-llrange range", "Limit the verification to locations within minlon,maxlon,minlat,maxlat.")
-   print Util.formatArgument("-o offsets", "Limit the verification to these offsets (in hours).")
-   print Util.formatArgument("-r thresholds", "Compute scores for these thresholds (only used by some metrics).")
-   print Util.formatArgument("-t period", "Allow this many days of training, i.e. remove this many days from the beginning of the verification.")
-   print Util.formatArgument("-x dim", "Plot this dimension on the x-axis: date, offset, year, month, location, locationId, locationElev, locationLat, locationLon, threshold, or none. Not supported by all metrics. If not specified, then a default is used based on the metric. 'none' collapses all dimensions and computes one value.")
+   print(Util.green("  Dimensions and subset:"))
+   print(Util.formatArgument("-d dates", "A vector of dates in YYYYMMDD format, e.g.  20130101:20130201."))
+   print(Util.formatArgument("-l locations", "Limit the verification to these location IDs."))
+   print(Util.formatArgument("-llrange range", "Limit the verification to locations within minlon,maxlon,minlat,maxlat."))
+   print(Util.formatArgument("-o offsets", "Limit the verification to these offsets (in hours)."))
+   print(Util.formatArgument("-r thresholds", "Compute scores for these thresholds (only used by some metrics)."))
+   print(Util.formatArgument("-t period", "Allow this many days of training, i.e. remove this many days from the beginning of the verification."))
+   print(Util.formatArgument("-x dim", "Plot this dimension on the x-axis: date, offset, year, month, location, locationId, locationElev, locationLat, locationLon, threshold, or none. Not supported by all metrics. If not specified, then a default is used based on the metric. 'none' collapses all dimensions and computes one value."))
 
    # Data manipulation
-   print Util.green("  Data manipulation:")
-   print Util.formatArgument("-acc", "Plot accumulated values. Only works for non-derived metrics")
-   print Util.formatArgument("-b type", "One of 'below', 'within', or 'above'. For threshold plots (ets, hit, within, etc) 'below/above' computes frequency below/above the threshold, and 'within' computes the frequency between consecutive thresholds.")
-   print Util.formatArgument("-c file", "File containing climatology data. Subtract all forecasts and obs with climatology values.")
-   print Util.formatArgument("-C file", "File containing climatology data. Divide all forecasts and obs by climatology values.")
-   print Util.formatArgument("-ct type", "Collapsing type: 'min', 'mean', 'median', 'max', 'std', 'range', or a number between 0 and 1. Some metrics computes a value for each value on the x-axis. Which function should be used to do the collapsing? Default is 'mean'. Only supported by some metrics. A number between 0 and 1 returns a specific quantile (e.g.  0.5 is the median)")
-   print Util.formatArgument("-hist", "Plot values as histogram. Only works for non-derived metrics")
-   print Util.formatArgument("-sort", "Plot values sorted. Only works for non-derived metrics")
+   print(Util.green("  Data manipulation:"))
+   print(Util.formatArgument("-acc", "Plot accumulated values. Only works for non-derived metrics"))
+   print(Util.formatArgument("-b type", "One of 'below', 'within', or 'above'. For threshold plots (ets, hit, within, etc) 'below/above' computes frequency below/above the threshold, and 'within' computes the frequency between consecutive thresholds."))
+   print(Util.formatArgument("-c file", "File containing climatology data. Subtract all forecasts and obs with climatology values."))
+   print(Util.formatArgument("-C file", "File containing climatology data. Divide all forecasts and obs by climatology values."))
+   print(Util.formatArgument("-ct type", "Collapsing type: 'min', 'mean', 'median', 'max', 'std', 'range', or a number between 0 and 1. Some metrics computes a value for each value on the x-axis. Which function should be used to do the collapsing? Default is 'mean'. Only supported by some metrics. A number between 0 and 1 returns a specific quantile (e.g.  0.5 is the median)"))
+   print(Util.formatArgument("-hist", "Plot values as histogram. Only works for non-derived metrics"))
+   print(Util.formatArgument("-sort", "Plot values sorted. Only works for non-derived metrics"))
 
    # Plot options
-   print Util.green("  Plotting options:")
-   print Util.formatArgument("-bot value", "Bottom boundary location for saved figure [range 0-1]")
-   print Util.formatArgument("-clim limits", "Force colorbar limits to the two values lower,upper")
-   print Util.formatArgument("-dpi value", "Resolution of image in dots per inch (default 100)")
-   print Util.formatArgument("-f file", "Save image to this filename")
-   print Util.formatArgument("-fs size", "Set figure size width,height (in inches). Default 8x6.")
-   print Util.formatArgument("-leg titles", "Comma-separated list of legend titles. Use '_' to represent space.")
-   print Util.formatArgument("-lw width", "How wide should lines be?")
-   print Util.formatArgument("-labfs size", "Font size for axis labels")
-   print Util.formatArgument("-left value", "Left boundary location for saved figure [range 0-1]")
-   print Util.formatArgument("-legfs size", "Font size for legend. Set to 0 to hide legend.")
-   print Util.formatArgument("-majlth length", "Length of major tick marks")
-   print Util.formatArgument("-majtwid width", "Adjust the thickness of the major tick marks")
-   print Util.formatArgument("-minlth length", "Length of minor tick marks")
-   print Util.formatArgument("-ms size", "How big should markers be?")
-   print Util.formatArgument("-nomargin", "Remove margins (whitespace) in the plot not x[i] <= T.")
-   print Util.formatArgument("-right value", "Right boundary location for saved figure [range 0-1]")
-   print Util.formatArgument("-sp", "Show a line indicating the perfect score")
-   print Util.formatArgument("-tickfs size", "Font size for axis ticks")
-   print Util.formatArgument("-title text", "Custom title to chart top")
-   print Util.formatArgument("-top value", "Top boundary location for saved figure [range 0-1]")
-   print Util.formatArgument("-type type", "One of 'plot' (default), 'text', 'map', or 'maprank'.")
-   print Util.formatArgument("-xlabel text", "Custom x-axis label")
-   print Util.formatArgument("-xlim limits", "Force x-axis limits to the two values lower,upper")
-   print Util.formatArgument("-xrot value", "Rotation angle for x-axis labels")
-   print Util.formatArgument("-ylabel text", "Custom y-axis label")
-   print Util.formatArgument("-ylim limits", "Force y-axis limits to the two values lower,upper")
-   print ""
+   print(Util.green("  Plotting options:"))
+   print(Util.formatArgument("-bot value", "Bottom boundary location for saved figure [range 0-1]"))
+   print(Util.formatArgument("-clim limits", "Force colorbar limits to the two values lower,upper"))
+   print(Util.formatArgument("-dpi value", "Resolution of image in dots per inch (default 100)"))
+   print(Util.formatArgument("-f file", "Save image to this filename"))
+   print(Util.formatArgument("-fs size", "Set figure size width,height (in inches). Default 8x6."))
+   print(Util.formatArgument("-leg titles", "Comma-separated list of legend titles. Use '_' to represent space."))
+   print(Util.formatArgument("-lw width", "How wide should lines be?"))
+   print(Util.formatArgument("-labfs size", "Font size for axis labels"))
+   print(Util.formatArgument("-left value", "Left boundary location for saved figure [range 0-1]"))
+   print(Util.formatArgument("-legfs size", "Font size for legend. Set to 0 to hide legend."))
+   print(Util.formatArgument("-majlth length", "Length of major tick marks"))
+   print(Util.formatArgument("-majtwid width", "Adjust the thickness of the major tick marks"))
+   print(Util.formatArgument("-minlth length", "Length of minor tick marks"))
+   print(Util.formatArgument("-ms size", "How big should markers be?"))
+   print(Util.formatArgument("-nomargin", "Remove margins (whitespace) in the plot not x[i] <= T."))
+   print(Util.formatArgument("-right value", "Right boundary location for saved figure [range 0-1]"))
+   print(Util.formatArgument("-sp", "Show a line indicating the perfect score"))
+   print(Util.formatArgument("-tickfs size", "Font size for axis ticks"))
+   print(Util.formatArgument("-title text", "Custom title to chart top"))
+   print(Util.formatArgument("-top value", "Top boundary location for saved figure [range 0-1]"))
+   print(Util.formatArgument("-type type", "One of 'plot' (default), 'text', 'map', or 'maprank'."))
+   print(Util.formatArgument("-xlabel text", "Custom x-axis label"))
+   print(Util.formatArgument("-xlim limits", "Force x-axis limits to the two values lower,upper"))
+   print(Util.formatArgument("-xrot value", "Rotation angle for x-axis labels"))
+   print(Util.formatArgument("-ylabel text", "Custom y-axis label"))
+   print(Util.formatArgument("-ylim limits", "Force y-axis limits to the two values lower,upper"))
+   print("")
    metrics = Metric.getAllMetrics()
    outputs = Output.getAllOutputs()
-   print Util.green("Metrics (-m):")
+   print(Util.green("Metrics (-m):"))
    metricOutputs = metrics + outputs
    metricOutputs.sort(key=lambda x: x[0].lower(), reverse=False)
    for m in metricOutputs:
       name = m[0].lower()
       if(m[1].isValid()):
          desc = m[1].summary()
-         print Util.formatArgument(name, desc)
-         # print "   %-14s%s" % (name, textwrap.fill(desc, 80).replace('\n', '\n                 ')),
-         # print ""
+         print(Util.formatArgument(name, desc))
    if(data is not None):
-      print ""
-      print "  Or one of the following, which plots the raw score from the file:"
-      print " ",
+      print("")
+      print("  Or one of the following, which plots the raw score from the file:")
+      print(" ", )
       metrics = data.getMetrics()
       for metric in metrics:
-         print metric,
-   print ""
-   print ""
-   print Util.green("File formats:")
-   print Input.Text.description()
-   print Input.Comps.description()
+         print(metric, )
+   print("")
+   print("")
+   print(Util.green("File formats:"))
+   print(Input.Text.description())
+   print(Input.Comps.description())
 
 if __name__ == '__main__':
        main()
